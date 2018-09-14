@@ -17,9 +17,7 @@ module ClippingsPluck
 
     def split_clippings(file_content)
       clippings = file_content.force_encoding("UTF-8").split("=" * 10).delete_if { |c| c.strip.empty? }
-
-      # Reverse ensures that notes pair with the correct highlights
-      clippings.reverse.each { |clipping| parse_lines(clipping) }
+      clippings.each { |clipping| parse_lines(clipping) }
     end
 
     def parse_lines(clipping)
