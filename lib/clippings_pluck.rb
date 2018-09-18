@@ -53,7 +53,7 @@ module ClippingsPluck
     end
 
     def parse_book(lines)
-      @clipping[:book_title] = lines[0]
+      @clipping[:book_title] = lines[0].strip
       parse_page(lines)
     end
 
