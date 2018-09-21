@@ -1,39 +1,53 @@
 # ClippingsPluck
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/clippings_pluck`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Kindle stores all of your highlights and notes in a txt file called "My Clippings.txt". ClippingsPluck accepts a string of that file data and creates an array of hashes!
 
 ## Installation
 
-Add this line to your application's Gemfile:
+This gem is a work-in-progress, but it is useable (it's just not published yet). Add this line to your application's Gemfile:
 
 ```ruby
-gem 'clippings_pluck'
+gem 'clippings_pluck', git: "https://github.com/jgplane/clippings-pluck.git", ref: '65499e1'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install clippings_pluck
-
 ## Usage
 
-TODO: Write usage instructions here
+There are many different ways to read a "My Clippings.txt" file. Here's one:
 
-## Development
+```ruby
+file = File.open("./My\ Clippings.txt", "rb")
+contents = file.read
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Then, you can feed the string to ClippingsPluck like this:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+ClippingsPluck::Plucker.new.run(contents)
+```
 
-## Contributing
+You'll get back an array of hashes, each of which might look something like this:
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/clippings_pluck. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+```ruby
+{
+  note: nil, 
+  quote: '"He was not no machine!" screamed Gloria, fiercely and ungrammatically.', 
+  author: "Isaac Asimov", 
+  book_title: "I, Robot (The Robot Series Book 1)", 
+  page: nil, 
+  location: "245", 
+  date: "Tuesday, November 22, 2017 6:42:51 PM"
+}
+```
 
+## Development Plan
+
+- [ ] Move over more testing from private repo where ClippingsPluck was born
+- [ ] Check the format of the string and raise error if it won't parse
+- [ ] Add more functionality to `Clippings < Array`
 
 ## License
 
