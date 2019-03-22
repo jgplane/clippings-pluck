@@ -7,21 +7,16 @@ RSpec.describe ClippingsPluck::CsvParser do
   describe 'Run' do
     before :all do
       ROOT = File.dirname __FILE__
-      File.open("#{ROOT}/clippings.csv") do |f|
-        @string = f.read
-      end
-
-      @candidates = csv_parser.run(@string)
+      string = File.open("#{RSPEC_ROOT}/clippings.csv", "rb").read
+      @clippings = described_class.new.run(string)
     end
 
-    # Notes for implementation:
-    #
-    # SEPARATOR = "----------------------------------------------\t\t\t\r\t\t\t\r"
-    # metadata, clippings = @string.split(SEPARATOR)
-    # CSV.parse(clippings, headers: true, col_sep: "\t")
-    #
     it 'parses the correct book title' do
-      expect(@candidates.first[:book_title]).to eq("Book Title")
+      expect(@clippings.first[:book_title]).to eq("Book Title")
+    end
+
+    it 'parses the correct author' do
+      expect(@clippings.first[:author]).to eq("Author")
     end
   end
 end
