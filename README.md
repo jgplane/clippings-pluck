@@ -45,6 +45,7 @@ You'll get back an array of hashes, each of which might look something like this
 
 ## Development Plan
 
+- [ ] Add support for the kindle note export (CSV file)
 - [ ] Move over more testing from private repo where ClippingsPluck was born
 - [ ] Check the format of the string and raise error if it won't parse
 - [ ] Add more functionality to `Clippings < Array`
