@@ -10,7 +10,7 @@ module ClippingsPluck
     def run(string)
       @raw_metadata, @clipping_data = string.split(AMZN_DIVIDER)
       @book, @authors = parse_metadata
-      build_candidates
+      build_clippings
       @clippings
     end
 
@@ -20,7 +20,7 @@ module ClippingsPluck
       @raw_metadata.split("\r")[1..2].map(&:strip)
     end
 
-    def build_candidates
+    def build_clippings
       csv_hash = CSV.parse(@clipping_data, headers: true, col_sep: "\t").map(&:to_h)
       csv_hash.each{ |data| @clippings << format_clipping(data) }
     end

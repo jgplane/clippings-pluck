@@ -6,7 +6,6 @@ RSpec.describe ClippingsPluck::CsvParser do
 
   describe 'Run' do
     before :all do
-      ROOT = File.dirname __FILE__
       string = File.open("#{RSPEC_ROOT}/clippings.csv", "rb").read
       @clippings = described_class.new.run(string)
     end
