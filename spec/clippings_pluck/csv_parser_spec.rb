@@ -2,9 +2,7 @@ require "spec_helper"
 require "csv"
 
 RSpec.describe ClippingsPluck::CsvParser do
-  subject(:csv_parser) { described_class.new }
-
-  context 'CsvParser#run completes successfully' do
+  context '#run completes successfully' do
     before :all do
       string = File.open("#{RSPEC_ROOT}/resources/clippings.csv", "rb").read
       @clippings = described_class.new.run(string)
@@ -27,23 +25,23 @@ RSpec.describe ClippingsPluck::CsvParser do
     describe 'the first clipping returned by .run' do
       subject(:first) { @clippings.first }
 
-      it 'parses the correct book title' do
+      it 'has the correct book title' do
         expect(first[:book_title]).to eq("Title")
       end
 
-      it 'parses the correct author' do
+      it 'has the correct author' do
         expect(first[:author]).to eq("Author Name")
       end
 
-      it 'parses the correct highlight' do
+      it 'has the correct highlight' do
         expect(first[:quote]).to eq("Highlight 1")
       end
 
-      it 'parses the correct note' do
+      it 'has the correct note' do
         expect(first[:note]).to eq("Note 1-1")
       end
 
-      it 'parses the correct location' do
+      it 'has the correct location' do
         expect(first[:location]).to eq("221")
       end
 
@@ -58,15 +56,15 @@ RSpec.describe ClippingsPluck::CsvParser do
     describe 'the second clipping returned by .run' do
       subject(:second) { @clippings[1] }
 
-      it 'parses the correct book title' do
+      it 'has the correct book title' do
         expect(second[:book_title]).to eq("Title")
       end
 
-      it 'parses the correct author' do
+      it 'has the correct author' do
         expect(second[:author]).to eq("Author Name")
       end
 
-      it 'parses the correct highlight' do
+      it 'has the correct highlight' do
         expect(second[:quote]).to eq("Highlight 2")
       end
 
@@ -74,7 +72,7 @@ RSpec.describe ClippingsPluck::CsvParser do
         expect(second[:note]).to eq("Note 2-1 | Note 2-2")
       end
 
-      it 'parses the correct location' do
+      it 'has the correct location' do
         expect(second[:location]).to eq("384")
       end
     end
