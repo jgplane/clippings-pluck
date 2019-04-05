@@ -14,7 +14,37 @@ And then execute:
 
     $ bundle
 
-## Usage
+## ClippingsPluck::CsvParser Usage
+
+_Note:_ this is the preferred way to interact with ClippingsPluck. The Kindle CSV file is
+much more reliable and straightforward to parse.
+
+First, read from the csv file:
+```ruby
+  string = File.open("#{RSPEC_ROOT}/resources/clippings.csv", "rb").read
+```
+
+Then, you can pass that string into ClippingsPluck like this:
+
+```ruby
+ClippingsPluck::CsvParser.new.run(string)
+```
+
+You'll get back an array of hashes, each of which might look something like this:
+
+```ruby
+{
+  note: nil,
+  quote: '"He was not no machine!" screamed Gloria, fiercely and ungrammatically.',
+  author: "Isaac Asimov",
+  book_title: "I, Robot (The Robot Series Book 1)",
+  page: nil,
+  location: "245",
+  date: nil
+}
+```
+
+## ClippingsPluck::TxtParser Usage
 
 There are many different ways to read a "My Clippings.txt" file. Here's one:
 
@@ -26,7 +56,7 @@ contents = file.read
 Then, you can feed the string to ClippingsPluck like this:
 
 ```ruby
-ClippingsPluck::Plucker.new.run(contents)
+ClippingsPluck::TxtParser.new.run(contents)
 ```
 
 You'll get back an array of hashes, each of which might look something like this:
