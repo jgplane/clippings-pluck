@@ -4,7 +4,6 @@ module ClippingsPluck
 
     def initialize
       @clippings = Clippings.new
-      @clipping = Clipping.new
     end
 
     def run(string)
@@ -29,6 +28,7 @@ module ClippingsPluck
       if data['Annotation Type'] == 'Note'
         attach_note(data)
       else
+        @clipping = Clipping.new
         @clippings << format_clipping(data)
       end
     end
@@ -42,15 +42,14 @@ module ClippingsPluck
     end
 
     def format_clipping(data)
-      data[:quote] = data.delete 'Annotation'
-      location = (data.delete 'Location').gsub(/Location /, '')
-      data[:location] = Location.new(location)
-      data[:note] = ""
-      data[:book_title] = @book
-      data[:author] = @authors
+      @clipping[:quote] = data.delete 'Annotation'
+      @clipping.location = (data.delete 'Location').gsub(/Location /, '')
+      @clipping[:note] = ""
+      @clipping[:book_title] = @book
+      @clipping[:author] = @authors
       data.delete 'Annotation Type'
       data.delete 'Starred?'
-      data
+      @clipping
     end
   end
 end

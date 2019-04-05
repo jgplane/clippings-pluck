@@ -21,11 +21,7 @@ module ClippingsPluck
     end
 
     def eligible_note_matches(location)
-      reject { |clipping| ineligible?(clipping, location) }
-    end
-
-    def ineligible?(clipping, location)
-      clipping[:location].nil? || clipping.normalized_location > location
+      select { |clipping| clipping.eligible_for_note_attachment?(location) }
     end
   end
 end

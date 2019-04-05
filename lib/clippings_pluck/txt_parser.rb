@@ -29,7 +29,7 @@ module ClippingsPluck
 
     def parse_note(lines)
       if @clippings.length.positive?
-        location = find_location(lines)
+        location = Location.new(find_location(lines))
         highlight = @clippings.closest_highlight(location)
         highlight[:note] = lines[2]
       end
@@ -65,13 +65,13 @@ module ClippingsPluck
     end
 
     def parse_location(lines)
-      @clipping[:location] = find_location(lines)
+      @clipping.location = find_location(lines)
       parse_date(lines)
     end
 
     def find_location(lines)
       location = lines[1].match(/(?<=Location ).\S*/)
-      location.nil? ? nil : Location.new(location[0].to_s)
+      location.nil? ? nil : location[0].to_s
     end
 
     def parse_date(lines)
