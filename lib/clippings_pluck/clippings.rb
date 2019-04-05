@@ -1,11 +1,11 @@
 module ClippingsPluck
   class Clippings < Array
     def closest_highlight(note_location)
-      sorted_eligible_note_matches(note_location.normalize).first
+      sorted_eligible_note_matches(note_location.normalize).last
     end
 
     def with_notes
-      reject { |clipping| clipping[:note].nil? }
+      select(&:notated?)
     end
 
     def without_notes
@@ -15,9 +15,7 @@ module ClippingsPluck
     private
 
     def sorted_eligible_note_matches(location)
-      eligible_note_matches(location).sort do |a, b|
-        b.normalized_location <=> a.normalized_location
-      end
+      eligible_note_matches(location).sort_by(&:normalized_location)
     end
 
     def eligible_note_matches(location)

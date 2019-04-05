@@ -12,7 +12,9 @@ module ClippingsPluck
       has_location? && normalized_location <= note_location
     end
 
-    private
+    def notated?
+      !self[:note].nil?
+    end
 
     def missing_location?
       self[:location].nil?
