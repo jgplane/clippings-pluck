@@ -22,12 +22,14 @@ module ClippingsPluck
 
     def build_clippings
       csv_hash = CSV.parse(@clipping_data, headers: true, col_sep: "\t").map(&:to_h)
-      csv_hash.each do |data|
-        if data['Annotation Type'] == 'Note'
-          attach_note(data)
-        else
-          @clippings << format_clipping(data)
-        end
+      csv_hash.each { |data| format_according_to_type(data) }
+    end
+
+    def format_according_to_type(data)
+      if data['Annotation Type'] == 'Note'
+        attach_note(data)
+      else
+        @clippings << format_clipping(data)
       end
     end
 
