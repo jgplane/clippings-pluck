@@ -21,7 +21,7 @@ much more reliable and straightforward to parse.
 
 First, read from the csv file:
 ```ruby
-string = File.open("#{RSPEC_ROOT}/resources/clippings.csv", "rb").read
+string = File.open("clippings.csv", "rb").read
 ```
 
 Then, you can pass that string into ClippingsPluck like this:
