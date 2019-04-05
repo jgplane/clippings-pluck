@@ -1,10 +1,8 @@
-require_relative "clippings"
-
 module ClippingsPluck
   class TxtParser
     def initialize
       @clippings = Clippings.new
-      @clipping = {}
+      @clipping = Clipping.new
     end
 
     def run(file_content)
@@ -30,7 +28,11 @@ module ClippingsPluck
     end
 
     def parse_note(lines)
-      @clippings[-1][:note] = lines[2] if @clippings.length.positive?
+      if @clippings.length.positive?
+        location = find_location(lines)
+        highlight = @clippings.closest_highlight(location)
+        highlight[:note] = lines[2]
+      end
     end
 
     def parse_quote(lines)
@@ -63,9 +65,13 @@ module ClippingsPluck
     end
 
     def parse_location(lines)
-      location = lines[1].match(/(?<=Location ).\S*/)
-      @clipping[:location] = location.nil? ? nil : location[0]
+      @clipping[:location] = find_location(lines)
       parse_date(lines)
+    end
+
+    def find_location(lines)
+      location = lines[1].match(/(?<=Location ).\S*/)
+      location.nil? ? nil : Location.new(location[0].to_s)
     end
 
     def parse_date(lines)
@@ -76,7 +82,7 @@ module ClippingsPluck
 
     def push_clipping
       @clippings << @clipping
-      @clipping = {}
+      @clipping = Clipping.new
     end
   end
 end

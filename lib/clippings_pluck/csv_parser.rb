@@ -4,7 +4,7 @@ module ClippingsPluck
 
     def initialize
       @clippings = Clippings.new
-      @clipping = {}
+      @clipping = Clipping.new
     end
 
     def run(string)
@@ -43,7 +43,8 @@ module ClippingsPluck
 
     def format_clipping(data)
       data[:quote] = data.delete 'Annotation'
-      data[:location] = (data.delete 'Location').gsub(/Location /, '')
+      location = (data.delete 'Location').gsub(/Location /, '')
+      data[:location] = Location.new(location)
       data[:note] = ""
       data[:book_title] = @book
       data[:author] = @authors
