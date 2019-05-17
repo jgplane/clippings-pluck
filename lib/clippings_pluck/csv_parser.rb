@@ -1,3 +1,5 @@
+require 'csv'
+
 module ClippingsPluck
   class CsvParser
     AMZN_DIVIDER = "----------------------------------------------\t\t\t\r\t\t\t\r"
@@ -20,7 +22,7 @@ module ClippingsPluck
     end
 
     def build_clippings
-      csv_hash = CSV.parse(@clipping_data, headers: true, col_sep: "\t").map(&:to_h)
+      csv_hash = ::CSV.parse(@clipping_data, headers: true, col_sep: "\t").map(&:to_h)
       csv_hash.each { |data| format_according_to_type(data) }
     end
 
