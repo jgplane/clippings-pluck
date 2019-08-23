@@ -3,6 +3,7 @@ require 'csv'
 module ClippingsPluck
   class CsvParser
     AMZN_DIVIDER = "----------------------------------------------\t\t\t\r\t\t\t\r"
+    ALT_AMZN_DIVIDER = "----------------------------------------------"
 
     def initialize
       @clippings = Clippings.new
@@ -10,6 +11,9 @@ module ClippingsPluck
 
     def run(string)
       @raw_metadata, @clipping_data = string.split(AMZN_DIVIDER)
+      if @clipping_data.nil?
+        @raw_metadata, @clipping_data = string.split(ALT_AMZN_DIVIDER)
+      end
       @book, @authors = parse_metadata
       build_clippings
       @clippings
