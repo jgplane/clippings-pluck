@@ -2,18 +2,19 @@ require 'csv'
 
 module ClippingsPluck
   class CsvParser
-    AMZN_DIVIDER = "----------------------------------------------\t\t\t\r\t\t\t\r"
-    ALT_AMZN_DIVIDER = "----------------------------------------------"
+    EXCEL_DIVIDER = "----------------------------------------------\t\t\t\r\t\t\t\r"
+    EXCEL_SEP = "\t"
+
+    AMZN_DIVIDER = "----------------------------------------------"
+    AMZN_SEP = ","
 
     def initialize
       @clippings = Clippings.new
     end
 
     def run(string)
-      @raw_metadata, @clipping_data = string.split(AMZN_DIVIDER)
-      if @clipping_data.nil?
-        @raw_metadata, @clipping_data = string.split(ALT_AMZN_DIVIDER)
-      end
+      @string = string
+      @raw_metadata, @clipping_data = @string.split(divider)
       @book, @authors = parse_metadata
       build_clippings
       @clippings
@@ -21,13 +22,32 @@ module ClippingsPluck
 
     private
 
+    def excel?
+      @string.include? EXCEL_DIVIDER
+    end
+
+    def divider
+      excel? ? EXCEL_DIVIDER : AMZN_DIVIDER
+    end
+
+    def sep
+      excel? ? EXCEL_SEP : AMZN_SEP
+    end
+
     def parse_metadata
-      @raw_metadata.split("\r")[1..2].map(&:strip).map{ |line| line.gsub(/by /, "") }
+      metadata = @raw_metadata.split("\r")[1..2].map(&:strip).map{ |line| line.gsub(/by /, "") }
+      metadata.map! { |string| string.gsub("\"", "").gsub(",,,", "") } if !excel?
+      metadata
     end
 
     def build_clippings
-      csv_hash = CSV.parse(@clipping_data, headers: true, col_sep: "\t").map(&:to_h)
+      remove_ghost_rows if !excel?
+      csv_hash = CSV.parse(@clipping_data, headers: true, col_sep: sep).map(&:to_h)
       csv_hash.each { |data| format_according_to_type(data) }
+    end
+
+    def remove_ghost_rows
+      @clipping_data = @clipping_data.gsub(",,,\r\n,,,\r\n", "")
     end
 
     def format_according_to_type(data)

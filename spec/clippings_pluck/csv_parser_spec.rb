@@ -77,4 +77,44 @@ RSpec.describe ClippingsPluck::CsvParser do
       end
     end
   end
+
+  describe 'different csv file formats' do
+    let(:original_string) { File.open("#{RSPEC_ROOT}/resources/original_clippings.csv", "rb").read }
+    let(:original_clippings) { described_class.new.run(original_string) }
+
+    let(:excel_string) { File.open("#{RSPEC_ROOT}/resources/resaved_excel_clippings.csv", "rb").read }
+    let(:excel_clippings) { described_class.new.run(excel_string) }
+
+    context 'using a csv file exactly as it is sent from Amazon' do
+      describe 'the clippings array returned by .run' do
+        it 'includes 2 clippings' do
+          expect(original_clippings.length).to eq(2)
+        end
+
+        it 'has the correct notes' do
+          expect(original_clippings.first[:note]).to eq("Test note")
+          expect(original_clippings.last[:note]).to eq("Test note 2")
+        end
+
+        it 'has the correct book title' do
+          expect(original_clippings.first[:book_title]).to eq("A PRINCESS OF MARS")
+          expect(original_clippings.last[:book_title]).to eq("A PRINCESS OF MARS")
+        end
+
+
+        it 'has the correct author' do
+          expect(original_clippings.first[:author]).to eq("Edgar Rice Burroughs")
+          expect(original_clippings.last[:author]).to eq("Edgar Rice Burroughs")
+        end
+      end
+    end
+
+    context 'using a csv file that was opened and resaved in excel' do
+      describe 'in comparison with the original' do
+        it 'returns the same hash' do
+          expect(excel_clippings).to eq(original_clippings)
+        end
+      end
+    end
+  end
 end
