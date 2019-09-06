@@ -1,6 +1,8 @@
 # ClippingsPluck
 
-Kindle stores all of your highlights and notes in a txt file called "My Clippings.txt". ClippingsPluck accepts a string of that file data and creates an array of hashes!
+Amazon stores all of your kindle highlights and notes in a txt file called "My Clippings.txt".
+Amazon will also let you export those highlights as a CSV file.
+ClippingsPluck accepts a string read from one of those files and returns an array of hashes.
 
 ## Installation
 
@@ -17,7 +19,7 @@ And then execute:
 ## ClippingsPluck::CsvParser Usage
 
 _Note:_ this is the preferred way to interact with ClippingsPluck. The Kindle CSV file is
-much more reliable and straightforward to parse.
+much more reliable and straightforward to parse than the TXT file.
 
 First, read from the csv file:
 ```ruby
@@ -46,7 +48,7 @@ You'll get back an array of hashes, each of which might look something like this
 
 ## ClippingsPluck::TxtParser Usage
 
-There are many different ways to read a "My Clippings.txt" file. Here's one:
+Using the TXT file parser is similar:
 
 ```ruby
 file = File.open("./My\ Clippings.txt", "rb")
@@ -63,12 +65,12 @@ You'll get back an array of hashes, each of which might look something like this
 
 ```ruby
 {
-  note: nil, 
-  quote: '"He was not no machine!" screamed Gloria, fiercely and ungrammatically.', 
-  author: "Isaac Asimov", 
-  book_title: "I, Robot (The Robot Series Book 1)", 
-  page: nil, 
-  location: "245", 
+  note: nil,
+  quote: '"He was not no machine!" screamed Gloria, fiercely and ungrammatically.',
+  author: "Isaac Asimov",
+  book_title: "I, Robot (The Robot Series Book 1)",
+  page: nil,
+  location: "245",
   date: "Tuesday, November 22, 2017 6:42:51 PM"
 }
 ```
