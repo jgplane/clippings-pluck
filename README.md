@@ -4,10 +4,10 @@ Kindle stores all of your highlights and notes in a txt file called "My Clipping
 
 ## Installation
 
-This gem is a work-in-progress, but it is useable (it's just not published yet). Add this line to your application's Gemfile:
+Add this line to your application's Gemfile:
 
 ```ruby
-gem 'clippings_pluck', git: "https://github.com/jgplane/clippings-pluck.git", ref: '65499e1'
+gem 'clippings_pluck'
 ```
 
 And then execute:
@@ -72,14 +72,6 @@ You'll get back an array of hashes, each of which might look something like this
   date: "Tuesday, November 22, 2017 6:42:51 PM"
 }
 ```
-
-## Development Plan
-
-- [X] Move over more testing from private repo where ClippingsPluck was born
-- [X] Add support for the kindle note export (CSV file)
-- [ ] Fix buggy plaintext parsing (smart note attachment)
-- [ ] Check the format of the string and raise error if it won't parse
-- [ ] Add more functionality to `Clippings < Array`
 
 ## License
 
