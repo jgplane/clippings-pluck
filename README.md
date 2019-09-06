@@ -1,6 +1,8 @@
-# ClippingsPluck
+# clippings_pluck
 
 [![Gem Version](https://badge.fury.io/rb/clippings_pluck.svg)](https://badge.fury.io/rb/clippings_pluck)
+[![MIT](https://img.shields.io/badge/license-MIT-lightgray)](http://opensource.org/licenses/MIT)
+![Last Commit](https://img.shields.io/github/last-commit/jgplane/clippings-pluck)
 
 Amazon stores all of your kindle highlights and notes in a txt file called "My Clippings.txt".
 Amazon will also let you export those highlights as a CSV file.
@@ -80,4 +82,3 @@ You'll get back an array of hashes, each of which might look something like this
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
