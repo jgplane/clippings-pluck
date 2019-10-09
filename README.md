@@ -79,6 +79,12 @@ You'll get back an array of hashes, each of which might look something like this
 }
 ```
 
+## FAQ
+
+__Q: How do I get ahold of these highlight files?__
+
+__A:__ Follow the instructions [here](doc/export_kindle_highlights.md).
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
