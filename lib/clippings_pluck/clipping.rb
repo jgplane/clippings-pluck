@@ -5,23 +5,21 @@ module ClippingsPluck
     end
 
     def normalized_location
-      missing_location? ? nil : self[:location].normalize
+      locatable? ? self[:location].normalize : nil
     end
 
-    def eligible_for_note_attachment?(note_location)
-      has_location? && normalized_location <= note_location
+    def notatable?(note_location)
+      locatable? && normalized_location <= note_location
     end
 
     def notated?
       !self[:note].nil?
     end
 
-    def missing_location?
-      self[:location].nil?
-    end
+    private
 
-    def has_location?
-      !missing_location?
+    def locatable?
+      !self[:location].nil?
     end
   end
 end
