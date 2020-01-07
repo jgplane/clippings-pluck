@@ -2,7 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/clippings_pluck.svg)](https://badge.fury.io/rb/clippings_pluck)
 [![MIT](https://img.shields.io/badge/license-MIT-lightgray)](http://opensource.org/licenses/MIT)
-![Last Commit](https://img.shields.io/github/last-commit/jgplane/clippings-pluck)
 
 Amazon stores all of your kindle highlights and notes in a txt file called "My Clippings.txt".
 Amazon will also let you export those highlights as a CSV file.
